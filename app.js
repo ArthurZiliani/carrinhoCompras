@@ -24,14 +24,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // carrega os models
+const produtos_model = require('./models/produtos');
 const usuarios_model = require('./models/usuarios');
 
 // carregas as rotas
 const index = require('./routes/index');
-const usuario = require('./routes/usuario');
+const carrinho = require('./routes/carrinho');
+const produtos = require('/../routes/produtos')
 
 app.use('/', index);
-app.use('/usuario', usuario);
+app.use('/carrinho', carrinho);
+app.use('/produtos', produtos);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -8,23 +8,24 @@ const schema = new Schema({
     nome: {
         type: String,
         required: true,
-        trim: true
-    },
-    email: {
-        type: String,
-        required: true,
         trim: true,
         index: true,
         unique: true
     },
-    senha: {
+    categoria: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    quantidade: {
         type: Number,
         required: true
     },
-    carrinho: {
-        type: Array
+    valor: {
+        type: Number,
+        required: true
     }
 
 });
 
-module.exports = mongoose.model('Usuarios', schema);
+module.exports = mongoose.model('Produtos', schema);
