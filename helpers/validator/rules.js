@@ -1,155 +1,81 @@
-const Validator = () => {
-  let errors = []
-
+const Rules = () => {
   /**
-   * -----------------------------------------------------------------------------------
-   */
-
-  const validate = (nomeCampo, value, validacoes) => {
-    validacoes.forEach(function (item) {
-      let arg
-      let validacao = item
-
-      if (validacao.includes(':')) {
-        arg = validacao.split(':')
-        validacao = arg[0]
-      }
-
-      switch (validacao) {
-        case 'required':
-          required(value, nomeCampo)
-          break
-        case 'numeric':
-          numeric(value, nomeCampo)
-          break
-        case 'string':
-          string(value, nomeCampo)
-          break
-        case 'boolean':
-          boolean(value, nomeCampo)
-          break
-        case 'object':
-          object(value, nomeCampo)
-          break
-
-        case 'minLength':
-          minLength(value, arg[1], nomeCampo)
-          break
-        case 'maxLength':
-          maxLength(value, arg[1], nomeCampo)
-          break
-        case 'exactLength':
-          exactLength(value, arg[1], nomeCampo)
-          break
-
-        case 'greaterThan':
-          greaterThan(value, arg[1], nomeCampo)
-          break
-        case 'lessThan':
-          lessThan(value, arg[1], nomeCampo)
-          break
-
-        case 'alpha':
-          alpha(value, nomeCampo)
-          break
-        case 'alphaNumeric':
-          alphaNumeric(value, nomeCampo)
-          break
-
-        case 'validEmail':
-          validEmail(value, nomeCampo)
-          break
-        case 'validDate':
-          validDate(value, nomeCampo)
-          break
-        case 'validCpf':
-          validCpf(value, nomeCampo)
-          break
-      }
-    })
-  }
-
-  /**
-   * -----------------------------------------------------------------------------------
-   */
-
-  /**
-   * Método: required:
+   * Método: isRequired:
    * Descrição: Verifica se variável está definida
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const required = (value, nomeCampo) => {
+  const isRequired = (value, nomeCampo) => {
     if (!value || value.length <= 0) {
-      errors.push({message: `O campo ${nomeCampo} é obrigatório`})
+      return ({message: `O campo ${nomeCampo} é obrigatório`})
     }
   }
 
   /**
-   * Método: numeric:
+   * Método: isNumeric:
    * Descrição: Verifica tipo númerico
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const numeric = (value, nomeCampo) => {
+  const isNumeric = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (typeof value !== 'number') {
-      errors.push({message: `O campo ${nomeCampo} deve ser um número`})
+      return ({message: `O campo ${nomeCampo} deve ser um número`})
     }
   }
 
   /**
-   * Método: string:
+   * Método: isString:
    * Descrição: Verifica tipo texto
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const string = (value, nomeCampo) => {
+  const isString = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (typeof value !== 'string') {
-      errors.push({message: `O campo ${nomeCampo} deve ser um texto`})
+      return ({message: `O campo ${nomeCampo} deve ser um texto`})
     }
   }
 
   /**
-   * Método: boolean:
+   * Método: isBoolean:
    * Descrição: Verifica tipo lógico
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const boolean = (value, nomeCampo) => {
+  const isBoolean = (value, nomeCampo) => {
     /// pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (typeof value !== 'boolean') {
-      errors.push({message: `O campo ${nomeCampo} deve ser lógico`})
+      return ({message: `O campo ${nomeCampo} deve ser lógico`})
     }
   }
 
   /**
-   * Método: object:
+   * Método: isObject:
    * Descrição: Verifica tipo objeto
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const object = (value, nomeCampo) => {
+  const isObject = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (typeof value !== 'object') {
-      errors.push({message: `O campo ${nomeCampo} deve ser um objeto`})
+      return ({message: `O campo ${nomeCampo} deve ser um objeto`})
     }
   }
 
@@ -158,56 +84,56 @@ const Validator = () => {
    */
 
   /**
-   * Método: minLength:
+   * Método: isMinLength:
    * Descrição: Valida tamanho mínimo de uma variável
    * @value conteúdo a ser validado
    * @min: número mínimo de caracteres
    * @nomeCampo nome do campo html
    */
-  const minLength = (value, min, nomeCampo) => {
+  const isMinLength = (value, nomeCampo, min) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (value.length <= min) {
-      errors.push({message: `O campo ${nomeCampo} deve ter no mínimo ${min} caracteres`})
+      return ({message: `O campo ${nomeCampo} deve ter no mínimo ${min} caracteres`})
     }
   }
 
   /**
-   * Método: maxLength:
+   * Método: isMaxLength:
    * Descrição: Valida tamanho máximo de uma variável
    * @value conteúdo a ser validado
    * @max: número máximo de caracteres
    * @nomeCampo nome do campo html
    */
-  const maxLength = (value, max, nomeCampo) => {
+  const isMaxLength = (value, nomeCampo, max) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (value.length >= max) {
-      errors.push({message: `O campo ${nomeCampo} deve ter no máximo ${max} caracteres`})
+      return ({message: `O campo ${nomeCampo} deve ter no máximo ${max} caracteres`})
     }
   }
 
   /**
-   * Método: exactLength:
+   * Método: isExactLength:
    * Descrição: Valida tamanho de uma variável
    * @value conteúdo a ser validado
    * @len: número de caracteres
    * @nomeCampo nome do campo html
    */
-  const exactLength = (value, len, nomeCampo) => {
+  const isExactLength = (value, nomeCampo, len) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (value.length !== len) {
-      errors.push({message: `O campo ${nomeCampo} deve ter exatos ${len} caracteres`})
+      return ({message: `O campo ${nomeCampo} deve ter exatos ${len} caracteres`})
     }
   }
 
@@ -216,38 +142,38 @@ const Validator = () => {
    */
 
   /**
-   * Método: greaterThan:
+   * Método: isGreaterThan:
    * Descrição: Valida valor maior que mínimo
    * @value conteúdo a ser validado
    * @min: valor mínimo
    * @nomeCampo nome do campo html
    */
-  const greaterThan = (value, min, nomeCampo) => {
+  const isGreaterThan = (value, nomeCampo, min) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (Number(value) <= min) {
-      errors.push({message: `O campo ${nomeCampo} deve ser maior que ${min}`})
+      return ({message: `O campo ${nomeCampo} deve ser maior que ${min}`})
     }
   }
 
   /**
-   * Método: lessThan:
+   * Método: isLessThan:
    * Descrição: Valida valor menor que máximo
    * @value conteúdo a ser validado
    * @max: valor máximo
    * @nomeCampo nome do campo html
    */
-  const lessThan = (value, max, nomeCampo) => {
+  const isLessThan = (value, nomeCampo, max) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
     if (Number(value) >= max) {
-      errors.push({message: `O campo ${nomeCampo} deve ser menor que ${max}`})
+      return ({message: `O campo ${nomeCampo} deve ser menor que ${max}`})
     }
   }
 
@@ -256,12 +182,12 @@ const Validator = () => {
    */
 
   /**
-   * Método: alpha:
+   * Método: isAlpha:
    * Descrição: Verifica se variável utiliza apenas caracteres
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const alpha = (value, nomeCampo) => {
+  const isAlpha = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
@@ -271,17 +197,17 @@ const Validator = () => {
     let Exp = /^[A-z]+$/
 
     if (!value.match(Exp)) {
-      errors.push({message: `O campo ${nomeCampo} deve conter apenas letras`})
+      return ({message: `O campo ${nomeCampo} deve conter apenas letras`})
     }
   }
 
   /**
-   * Método: alphaNumeric:
+   * Método: isAlphaNumeric:
    * Descrição: Verifica se variável utiliza apenas caracteres e números
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const alphaNumeric = (value, nomeCampo) => {
+  const isAlphaNumeric = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
@@ -291,7 +217,7 @@ const Validator = () => {
     let Exp = /((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i
 
     if (!value.match(Exp)) {
-      errors.push({message: `O campo ${nomeCampo} deve conter números e letras`})
+      return ({message: `O campo ${nomeCampo} deve conter números e letras`})
     }
   }
 
@@ -300,31 +226,31 @@ const Validator = () => {
    */
 
   /**
-   * Método: validEmail:
+   * Método: isEmail:
    * Descrição: Verifica se email é válido
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const validEmail = (value, nomeCampo) => {
+  const isEmail = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
     }
 
-    let Exp = /^(([^<>()\[\]\\.,:\s@"]+(\.[^<>()\[\]\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    let Exp = /^(([^<>()\][\\.,:\s@"]+(\.[^<>()\][\\.,:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
     if (!value.match(Exp)) {
-      errors.push({message: `O campo ${nomeCampo} deve ser um email válido`})
+      return ({message: `O campo ${nomeCampo} deve ser um email válido`})
     }
   }
 
   /**
-   * Método: validDate:
+   * Método: isDate:
    * Descrição: Verifica se data é válida
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const validDate = (value, nomeCampo) => {
+  const isDate = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
@@ -334,17 +260,17 @@ const Validator = () => {
     let Exp = /^\d{1,2}\/\d{1,2}\/\d{4}$/
 
     if (!value.match(Exp)) {
-      errors.push({message: `O campo ${nomeCampo} deve ser uma data válida`})
+      return ({message: `O campo ${nomeCampo} deve ser uma data válida`})
     }
   }
 
   /**
-   * Método: validCpf:
+   * Método: isCpf:
    * Descrição: Verifica se cpf é válido
    * @value conteúdo a ser validado
    * @nomeCampo nome do campo html
    */
-  const validCpf = (value, nomeCampo) => {
+  const isCpf = (value, nomeCampo) => {
     // pula variáveis quebradas
     if (value === null || value === undefined || value === '' || value.length <= 0) {
       return
@@ -358,8 +284,7 @@ const Validator = () => {
       value === '44444444444' || value === '55555555555' ||
       value === '66666666666' || value === '77777777777' ||
       value === '88888888888' || value === '99999999999') {
-      errors.push({message: `O campo ${nomeCampo} deve ser um cpf válido`})
-      return
+      return ({message: `O campo ${nomeCampo} deve ser um cpf válido`})
     }
 
     let r
@@ -376,8 +301,7 @@ const Validator = () => {
     }
 
     if (r !== parseInt(value[9])) {
-      errors.push({message: `O campo ${nomeCampo} deve ser um cpf válido`})
-      return
+      return ({message: `O campo ${nomeCampo} deve ser um cpf válido`})
     }
 
     s = 0
@@ -393,32 +317,27 @@ const Validator = () => {
     }
 
     if (r !== parseInt(value[10])) {
-      errors.push({message: `O campo ${nomeCampo} deve ser um cpf válido`})
+      return ({message: `O campo ${nomeCampo} deve ser um cpf válido`})
     }
   }
 
-  /**
-   * -----------------------------------------------------------------------------------
-   */
-
-  const _getErrors = () => {
-    return errors
-  }
-
-  const _verifyErrors = () => {
-    return errors.length === 0
-  }
-
-  const _cleanErrors = () => {
-    errors = []
-  }
-
   return {
-    validate: validate,
-    _getErrors: _getErrors,
-    _verifyErrors: _verifyErrors,
-    _cleanErrors: _cleanErrors
+    isRequired,
+    isNumeric,
+    isString,
+    isBoolean,
+    isObject,
+    isMinLength,
+    isMaxLength,
+    isExactLength,
+    isGreaterThan,
+    isLessThan,
+    isAlpha,
+    isAlphaNumeric,
+    isEmail,
+    isDate,
+    isCpf
   }
 }
 
-module.exports = Validator
+module.exports = Rules
