@@ -1,6 +1,8 @@
 // dependências
 const mongoose = require('mongoose')
-const UsuariosModel = mongoose.model('Usuarios')
+const UsuariosModel = mongoose.model('Usuarios');
+
+
 
 exports.getCarrinho = (req, res, next) => {
   // recepção

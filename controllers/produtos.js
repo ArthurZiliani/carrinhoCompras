@@ -1,6 +1,8 @@
 // dependências
-const mongoose = require('mongoose')
-const ProdutosModel = mongoose.model('Produtos')
+const mongoose = require('mongoose');
+const ProdutosModel = mongoose.model('Produtos');
+//repositorios
+const repositorios = require('../repository/produtos');
 
 //* *************************
 //                         *
@@ -8,15 +10,15 @@ const ProdutosModel = mongoose.model('Produtos')
 //                         *
 //* *************************
 
-exports.getAllProdutos = (req, res, next) => {
+exports.getAllProdutos = async (req, res, next) => {
   // recepção
-  ProdutosModel.find()
-    .then(data => {
-      res.status(200).send(data)
-    })
-    .catch(e => {
-      res.status(400).send(e)
-    })
+  
+  try {
+    const data = await repositorios.getAll();
+    res.status(200).json({ message: 'Okkk', produtos: data })
+  } catch (error) {
+    res.status(500).json({ error })
+  }
 }
 
 //* *************************
