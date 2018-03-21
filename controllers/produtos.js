@@ -1,8 +1,9 @@
 // dependências
-const mongoose = require('mongoose');
-const ProdutosModel = mongoose.model('Produtos');
-//repositorios
-const repositorios = require('../repository/produtos');
+const mongoose = require('mongoose')
+const ProdutosModel = mongoose.model('Produtos')
+// repositorios
+const repositorios = require('../repository/produtos')
+const validator = require('../helpers/validator/validator')()
 
 //* *************************
 //                         *
@@ -11,15 +12,14 @@ const repositorios = require('../repository/produtos');
 //* *************************
 
 exports.getAllProdutos = async (req, res, next) => {
-  // recepção
-  
   try {
-    const data = await repositorios.getAll();
+    const data = await repositorios.getAllProdutos()
     res.status(200).json({ message: 'Okkk', produtos: data })
   } catch (error) {
     res.status(500).json({ error })
   }
 }
+
 
 //* *************************
 //                         *
@@ -45,43 +45,27 @@ exports.getUsuario = (req, res, next) => {
 //  INSERE USUÁRIO  *
 //                  *
 //* ******************
-/*
-exports.addUsuario = (req, res, next) => {
+/***/
+exports.addProduto = (req, res, next) => {
   let usuario = new UsuariosModel()
 
-  // variáveis
-  usuario.nome = req.body.nome
-  usuario.email = req.body.email
-  usuario.senha = req.body.senha
-  usuario.data_nascimento = req.body.data_nascimento
-  usuario.data_cadastro = req.body.data_cadastro
-  usuario.contato = {
-    telefone: req.body.telefone,
-    celular: req.body.celular
-  }
-  usuario.endereco = {
-    rua: req.body.rua,
-    numero: req.body.numero,
-    bairro: req.body.bairro,
-    cidade: req.body.cidade,
-    estado: req.body.estado
+  try {
+    const data = await repositorios.addProduto(req)
+    res.status(201).json({ mensagem: 'Usuário cadastrado com sucesso!' })
+  } catch (error) {
+    res.status(400).json({
+      mensagem: 'Não foi possível cadastrar o usuário',
+      data: e
+    })
   }
 
+  // variáveis
+ 
+
   // inserção
-  usuario.save()
-    .then(data => {
-      res.status(201).send({
-        mensagem: 'Usuário cadastrado com sucesso!'
-      })
-    })
-    .catch(e => {
-      res.status(400).send({
-        mensagem: 'Não foi possível cadastrar o usuário',
-        data: e
-      })
-    })
+ 
 }
-*/
+/*
 //* ********************
 //                    *
 //  ATUALIZA USUÁRIO  *

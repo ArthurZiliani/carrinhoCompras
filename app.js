@@ -9,7 +9,7 @@ const mongo = require('mongoose')
 const app = express()
 
 // conecta ao banco de dados
-mongo.connect('mongodb://root:root@ds251598.mlab.com:51598/teste');
+mongo.connect('mongodb://root:root@ds251598.mlab.com:51598/teste')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -24,17 +24,20 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // carrega os models
-const ProdutosModel = require('./models/produtos.js')
-const UsuariosModel = require('./models/usuarios.js')
+const ProdutosModel = require('./models/produtos')
+const UsuariosModel = require('./models/usuarios')
+const UsuariosModel = require('./models/pedidos')
 
 // carregas as rotas
 const index = require('./routes/index.js')
-const carrinho = require('./routes/carrinho.js')
-const produtos = require('./routes/produtos.js')
+const carrinho = require('./routes/carrinho')
+const produtos = require('./routes/produtos')
+const usuarios = require('./routes/usuarios')
 
 app.use('/', index)
 app.use('/carrinho', carrinho)
 app.use('/produtos', produtos)
+app.use('/usuarios', usuarios)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

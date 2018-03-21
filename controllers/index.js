@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express')
 
 exports.bemVindo = (req, res, next) => {
   res.status(201).send({

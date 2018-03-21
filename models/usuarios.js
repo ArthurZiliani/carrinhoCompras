@@ -23,6 +23,20 @@ const schema = new Schema({
   },
   carrinho: {
     type: Array
+  },
+  data_nascimento: {
+    type: Date
+  },
+  data_cadastro: {
+    type: Date,
+    default: Date.now
+  },
+  contato: {
+    type: Array
+  },
+  endereco: {
+    type: String,
+    required: true
   }
 
 })
