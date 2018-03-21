@@ -15,10 +15,10 @@ const schema = new Schema({
     required: true,
     trim: true,
     index: true,
-    unique: true
+    unique: [true, 'Email já cadastrado']
   },
   senha: {
-    type: Number,
+    type: String,
     required: true
   },
   carrinho: {

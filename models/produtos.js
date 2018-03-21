@@ -24,7 +24,11 @@ const schema = new Schema({
   valor: {
     type: Number,
     required: true
-  }
+  },
+  tags: [{
+    type: String,
+    require: true
+  }]
 
 })
 
