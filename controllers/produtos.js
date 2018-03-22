@@ -1,5 +1,8 @@
 // dependências
+const mongoose = require('mongoose')
 const ProdutosRepository = require('../repository/produtos')
+const ProductModel = mongoose.model('Produtos')
+const validator = require('../helpers/validator/validator')()
 
 /***********
 *
@@ -38,11 +41,16 @@ exports.getProduto = async (req, res, next) => {
 ************/
 
 exports.addProduto = async (req, res, next) => {
+  
   try {
-    await ProdutosRepository.addProduto(req)
-    res.status(201).json({ mensagem: 'Produto cadastrado com sucesso!' })
+   await ProdutosRepository.addProduto(req.body)
+    res.status(201).json({
+      message: 'Tudo certo'
+    })
   } catch (error) {
-    res.status(400).json({ mensagem: 'Não foi possível cadastrar o produto', data: error })
+    res.status(400).json({
+      error: error
+    })
   }
 }
 
@@ -54,10 +62,10 @@ exports.addProduto = async (req, res, next) => {
 
 exports.editProduto = async (req, res, next) => {
   try {
-    await ProdutosRepository.editProduto(req)
+    await ProdutosRepository.editProduto(req.params.id, req.body) 
     res.status(200).json({ mensagem: 'Produto atualizado com sucesso!' })
   } catch (error) {
-    res.status(400).json({ mensagem: 'Não foi possível atualizar o produto', data: error })
+    res.status(400).json({ mensagem: 'Não foi possível atualizar o produto', error })
   }
 }
 
@@ -69,7 +77,7 @@ exports.editProduto = async (req, res, next) => {
 
 exports.delProduto = async (req, res, next) => {
   try {
-    await ProdutosRepository.delProduto(req)
+    await ProdutosRepository.delProduto(req.body.id)
     res.status(200).json({ mensagem: 'Produto deletado com sucesso!' })
   } catch (error) {
     res.status(400).json({ mensagem: 'Não foi possível deletar o produto', data: error })

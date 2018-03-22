@@ -22,7 +22,7 @@ exports.getAllProdutos = async () => {
 exports.getProduto = async (req) => {
   const objectId = mongoose.Types.ObjectId(req.params.id)
 
-  const res = await ProdutosModel.find({_id: objectId})
+  const res = await ProdutosModel.find({ _id: objectId })
   return res
 }
 
@@ -32,10 +32,9 @@ exports.getProduto = async (req) => {
 *
 ************/
 
-exports.addProduto = async (req) => {
-  const produto = new ProdutosModel()
+exports.addProduto = async (data) => {
 
-  // variáveis
+  /*// variáveis
   produto.nome = req.body.nome
   produto.categoria = req.body.categoria
   produto.quantidade = req.body.quantidade
@@ -47,10 +46,10 @@ exports.addProduto = async (req) => {
   validator.validate('Categoria', produto.categoria, ['isRequired', 'isString'])
   validator.validate('Quantidade', produto.quantidade, ['isRequired', 'isNumeric', 'isGreatherThan:0'])
   validator.validate('Valor', produto.valor, ['isRequired', 'isNumeric', 'isGreatherThan:0'])
-  validator.validate('Tag', produto.tags, ['isObject'])
+  validator.validate('Tag', produto.tags, ['isObject'])*/
 
-  const res = await ProdutosModel.save(produto)
-  return res
+  let produto = new ProdutosModel(data)
+  return await produto.save()
 }
 
 /***********
@@ -59,32 +58,23 @@ exports.addProduto = async (req) => {
 *
 ************/
 
-exports.editProduto = async (req) => {
-  const produto = new ProdutosModel()
-  const objectId = mongoose.Types.ObjectId(req.params.id)
-
-  // variáveis
-  produto.nome = req.body.nome
-  produto.categoria = req.body.categoria
-  produto.quantidade = req.body.quantidade
-  produto.valor = req.body.valor
-  produto.tags = req.body.tags
+exports.editProduto = async (id, data) => {
 
   // validação
-  validator.validate('Nome', produto.nome, ['isRequired', 'isString', 'isMinLenght:3'])
-  validator.validate('Categoria', produto.categoria, ['isRequired', 'isString'])
-  validator.validate('Quantidade', produto.quantidade, ['isRequired', 'isNumeric', 'isGreatherThan:0'])
-  validator.validate('Valor', produto.valor, ['isRequired', 'isNumeric', 'isGreatherThan:0'])
-  validator.validate('Tag', produto.tags, ['isObject'])
+  validator.validate('Nome', data.nome, ['isRequired', 'isString', 'isMinLenght:3'])
+  validator.validate('Categoria', data.categoria, ['isRequired', 'isString'])
+  validator.validate('Quantidade', data.quantidade, ['isRequired', 'isNumeric', 'isGreatherThan:0'])
+  validator.validate('Valor', data.valor, ['isRequired', 'isNumeric', 'isGreatherThan:0'])
+  validator.validate('Tag', data.tags, ['isObject'])
 
   // edição
-  const res = await ProdutosModel.findOneAndUpdate(objectId, {
+  const res = await ProdutosModel.findOneAndUpdate(id, {
     $set: {
-      nome: produto.nome,
-      email: produto.email,
-      quantidade: produto.quantidade,
-      valor: produto.valor,
-      tags: produto.tags
+      nome: data.nome,
+      email: data.email,
+      quantidade: data.quantidade,
+      valor: data.valor,
+      tags: data.tags
     }
   })
   return res
@@ -96,8 +86,7 @@ exports.editProduto = async (req) => {
 *
 ************/
 
-exports.delProduto = async (req) => {
-  const objectId = mongoose.Types.ObjectId(req.params.id)
-  const res = await ProdutosModel.findOneAndRemove(objectId)
+exports.delProduto = async (id) => {
+  const res = await ProdutosModel.findOneAndRemove({_id: id})
   return res
 }
