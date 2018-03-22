@@ -26,8 +26,7 @@ const schema = new Schema({
     required: true
   },
   tags: [{
-    type: String,
-    require: true
+    type: String
   }]
 
 })

@@ -30,7 +30,7 @@ const schema = new Schema({
       require: true,
       default: 1
     },
-    preco: {
+    valor: {
       type: Number,
       require: true
     },
@@ -44,6 +44,7 @@ const schema = new Schema({
     require: true,
     default: 0
   }
+  
 })
 
 module.exports = mongoose.model('Pedidos', schema)

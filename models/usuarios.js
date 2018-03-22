@@ -5,6 +5,7 @@ const Schema = mongoose.Schema
 // collection
 const schema = new Schema({
 
+  // principal
   nome: {
     type: String,
     required: true,
@@ -21,9 +22,7 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  carrinho: {
-    type: Array
-  },
+  // datas
   data_nascimento: {
     type: Date
   },
@@ -31,12 +30,39 @@ const schema = new Schema({
     type: Date,
     default: Date.now
   },
-  contato: {
+  // contato
+  contato: [{
+    telefone: {
+      type: String
+    },
+    celular: {
+      type: String
+    }
+  }],
+  // endereço
+  endereco: [{
+    rua: {
+      type: String
+    },
+    numero: {
+      type: Number
+    },
+    bairro: {
+      type: String
+    },
+    cidade: {
+      type: String
+    },
+    estado: {
+      type: String
+    },
+    cep: {
+      type: String
+    }
+  }],
+  // adicionais
+  carrinho: {
     type: Array
-  },
-  endereco: {
-    type: String,
-    required: true
   }
 
 })

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const controller = require('../controllers/carrinho.js')
+const controller = require('../controllers/carrinho')
 
-router.get('/', controller.getCarrinho)
-
+/*router.get('/', controller.getCarrinho)
+*/
 module.exports = router

@@ -26,16 +26,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 // carrega os models
 const ProdutosModel = require('./models/produtos')
 const UsuariosModel = require('./models/usuarios')
-const UsuariosModel = require('./models/pedidos')
+const PedidosModel = require('./models/pedidos')
 
 // carregas as rotas
 const index = require('./routes/index.js')
-const carrinho = require('./routes/carrinho')
+//const carrinho = require('./routes/carrinho')
 const produtos = require('./routes/produtos')
 const usuarios = require('./routes/usuarios')
 
 app.use('/', index)
-app.use('/carrinho', carrinho)
+//app.use('/carrinho', carrinho)
 app.use('/produtos', produtos)
 app.use('/usuarios', usuarios)
 

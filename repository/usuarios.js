@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const UsuariosModel = mongoose.model('Usuarios')
 const validator = require('../helpers/validator/validator')()
 
-
+/*
 exports.addUsuario = async () => {
 
     const usuario = new UsuariosModel
@@ -18,3 +18,4 @@ exports.addUsuario = async () => {
 
     await usuario.save(usuario);
 }
+*/
