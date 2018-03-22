@@ -9,14 +9,13 @@ const schema = new Schema({
   nome: {
     type: String,
     required: true,
-    trim: true
   },
   email: {
     type: String,
     required: true,
     trim: true,
     index: true,
-    unique: [true, 'Email já cadastrado']
+    unique: true
   },
   senha: {
     type: String,
@@ -31,16 +30,16 @@ const schema = new Schema({
     default: Date.now
   },
   // contato
-  contato: [{
+  contato: {
     telefone: {
       type: String
     },
     celular: {
       type: String
     }
-  }],
+  },
   // endereço
-  endereco: [{
+  endereco: {
     rua: {
       type: String
     },
@@ -59,7 +58,7 @@ const schema = new Schema({
     cep: {
       type: String
     }
-  }],
+  },
   // adicionais
   carrinho: {
     type: Array
