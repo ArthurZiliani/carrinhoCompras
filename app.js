@@ -24,18 +24,18 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // carrega os models
-const ProdutosModel = require('./models/produtos')
-const UsuariosModel = require('./models/usuarios')
-const PedidosModel = require('./models/pedidos')
+require('./models/produtos')
+require('./models/usuarios')
+require('./models/pedidos')
 
 // carregas as rotas
 const index = require('./routes/index.js')
-//const carrinho = require('./routes/carrinho')
+// const carrinho = require('./routes/carrinho')
 const produtos = require('./routes/produtos')
 const usuarios = require('./routes/usuarios')
 
 app.use('/', index)
-//app.use('/carrinho', carrinho)
+// app.use('/carrinho', carrinho)
 app.use('/produtos', produtos)
 app.use('/usuarios', usuarios)
 

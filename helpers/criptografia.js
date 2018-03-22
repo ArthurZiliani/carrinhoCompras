@@ -1,3 +1,4 @@
+// dependências
 const md5 = require('md5')
 
 const Criptografia = () => {

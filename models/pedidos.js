@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+// collection
 const schema = new Schema({
 
   numero: {
@@ -44,7 +45,7 @@ const schema = new Schema({
     require: true,
     default: 0
   }
-  
+
 })
 
 module.exports = mongoose.model('Pedidos', schema)
