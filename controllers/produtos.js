@@ -1,8 +1,5 @@
 // dependências
-const mongoose = require('mongoose')
 const ProdutosRepository = require('../repository/produtos')
-const ProductModel = mongoose.model('Produtos')
-const validator = require('../helpers/validator/validator')()
 
 /***********
 *
@@ -12,10 +9,10 @@ const validator = require('../helpers/validator/validator')()
 
 exports.getAllProdutos = async (req, res, next) => {
   try {
-    const data = await ProdutosRepository.getAllProdutos()
-    res.status(200).json({ produtos: data })
-  } catch (error) {
-    res.status(500).json({ error })
+    const _produtos = await ProdutosRepository.getAllProdutos()
+    res.status(200).json({ produtos: _produtos })
+  } catch (e) {
+    res.status(500).json({ erro: e })
   }
 }
 
@@ -27,10 +24,10 @@ exports.getAllProdutos = async (req, res, next) => {
 
 exports.getProduto = async (req, res, next) => {
   try {
-    const data = await ProdutosRepository.getProduto(req)
-    res.status(200).json({ produto: data })
-  } catch (error) {
-    res.status(500).json({ error })
+    const _produto = await ProdutosRepository.getProduto(req.params.id)
+    res.status(200).json({ produto: _produto })
+  } catch (e) {
+    res.status(500).json({ erro: e })
   }
 }
 
@@ -41,16 +38,11 @@ exports.getProduto = async (req, res, next) => {
 ************/
 
 exports.addProduto = async (req, res, next) => {
-  
   try {
-   await ProdutosRepository.addProduto(req.body)
-    res.status(201).json({
-      message: 'Tudo certo'
-    })
-  } catch (error) {
-    res.status(400).json({
-      error: error
-    })
+    await ProdutosRepository.addProduto(req.body)
+    res.status(201).json({ mensagem: 'Produto cadastrado com sucesso!' })
+  } catch (e) {
+    res.status(400).json({ mensagem: 'Não foi possível cadastrar o produto', erro: e })
   }
 }
 
@@ -62,10 +54,10 @@ exports.addProduto = async (req, res, next) => {
 
 exports.editProduto = async (req, res, next) => {
   try {
-    await ProdutosRepository.editProduto(req.params.id, req.body) 
+    await ProdutosRepository.editProduto(req.params.id, req.body)
     res.status(200).json({ mensagem: 'Produto atualizado com sucesso!' })
-  } catch (error) {
-    res.status(400).json({ mensagem: 'Não foi possível atualizar o produto', error })
+  } catch (e) {
+    res.status(400).json({ mensagem: 'Não foi possível atualizar o produto', erro: e })
   }
 }
 
@@ -77,9 +69,9 @@ exports.editProduto = async (req, res, next) => {
 
 exports.delProduto = async (req, res, next) => {
   try {
-    await ProdutosRepository.delProduto(req.body.id)
+    await ProdutosRepository.delProduto(req.params.id)
     res.status(200).json({ mensagem: 'Produto deletado com sucesso!' })
-  } catch (error) {
-    res.status(400).json({ mensagem: 'Não foi possível deletar o produto', data: error })
+  } catch (e) {
+    res.status(400).json({ mensagem: 'Não foi possível deletar o produto', erro: e })
   }
 }

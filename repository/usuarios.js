@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const UsuariosModel = mongoose.model('Usuarios')
-const validator = require('../helpers/validator/validator')()
 
 /***********
 *
@@ -9,8 +8,7 @@ const validator = require('../helpers/validator/validator')()
 ************/
 
 exports.getAllUsuarios = async () => {
-  const res = await UsuariosModel.find()
-  return res
+  return UsuariosModel.find()
 }
 
 /***********
@@ -20,9 +18,7 @@ exports.getAllUsuarios = async () => {
 ************/
 
 exports.getUsuario = async (id) => {
-  const objectId = mongoose.Types.ObjectId(id)
-  const res = await UsuariosModel.find({_id: objectId})
-  return res
+  return UsuariosModel.find({_id: id})
 }
 
 /***********
@@ -33,14 +29,7 @@ exports.getUsuario = async (id) => {
 
 exports.addUsuario = async (data) => {
   const usuario = new UsuariosModel(data)
-
-  // validação
-  /*validator.validate('Nome', usuario.nome, ['isRequired', 'isString', 'isMinLenght:3'])
-  validator.validate('Email', usuario.email, ['isRequired', 'isEmail'])
-  validator.validate('Senha', usuario.senha, ['isRequired', 'isMinLenght:6'])
-  */
-  const res = await usuario.save()
-  return res
+  return usuario.save()
 }
 
 /***********
@@ -50,28 +39,7 @@ exports.addUsuario = async (data) => {
 ************/
 
 exports.editUsuario = async (id, data) => {
-  const objectId = mongoose.Types.ObjectId(id)
-
-  // validação
-  /*
-  validator.validate('Nome', usuario.nome, ['isRequired', 'isString', 'isMinLenght:3'])
-  validator.validate('Email', usuario.email, ['isRequired', 'isEmail'])
-  validator.validate('Senha', usuario.senha, ['isRequired', 'isMinLenght:6'])
-  validator.validate('Data de Nascimento', usuario.data_nascimento, ['isDate'])
-  // contato
-  validator.validate('Telefone', usuario.contato.telefone, ['isString', 'isMinLength:8'])
-  validator.validate('Celular', usuario.contato.celular, ['isString', 'isMinLength:8'])
-  // endereco
-  validator.validate('Rua', usuario.endereco.rua, ['isString'])
-  validator.validate('Número', usuario.endereco.numero, ['isNumeric', 'isGreatherThan:0'])
-  validator.validate('Bairro', usuario.endereco.bairro, ['isString'])
-  validator.validate('Cidade', usuario.endereco.cidade, ['isString'])
-  validator.validate('Estado', usuario.endereco.estado, ['isString', 'isExactLength:2'])
-  validator.validate('Cep', usuario.endereco.cep, ['isString', 'isMinLength:8'])
-  */
-
-  // edição
-  const res = await UsuariosModel.findOneAndUpdate(objectId, {
+  return UsuariosModel.findOneAndUpdate(id, {
     $set: {
       nome: data.nome,
       email: data.email,
@@ -89,7 +57,6 @@ exports.editUsuario = async (id, data) => {
       cep: data.endereco.cep
     }
   })
-  return res
 }
 
 /***********
@@ -98,8 +65,6 @@ exports.editUsuario = async (id, data) => {
 *
 ************/
 
-exports.delUsuario = async (req) => {
-  const objectId = mongoose.Types.ObjectId(req.params.id)
-  const res = await UsuariosModel.findOneAndRemove(objectId)
-  return res
+exports.delUsuario = async (id) => {
+  return UsuariosModel.findOneAndRemove({_id: id})
 }

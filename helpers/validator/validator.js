@@ -40,11 +40,11 @@ const Validator = () => {
   }
 
   /**
-   * Método: getErrors:
+   * Método: detectErrors:
    * Descrição: Verifica se existem erros armazenados e retorna um boolean
    */
-  const verifyErrors = () => {
-    return errors.length === 0
+  const detectErrors = () => {
+    return errors.length !== 0 // true
   }
 
   /**
@@ -58,7 +58,7 @@ const Validator = () => {
   return {
     validate: validate,
     getErrors: getErrors,
-    verifyErrors: verifyErrors,
+    detectErrors: detectErrors,
     cleanErrors: cleanErrors
   }
 }

@@ -8,7 +8,7 @@ const schema = new Schema({
   // principal
   nome: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,

@@ -9,7 +9,7 @@ const mongo = require('mongoose')
 const app = express()
 
 // conecta ao banco de dados
-mongo.connect('mongodb://root:root@ds251598.mlab.com:51598/teste')
+mongo.connect(`mongodb://root:root@ds251598.mlab.com:51598/teste`)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -27,6 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 require('./models/produtos')
 require('./models/usuarios')
 require('./models/pedidos')
+
+// carrega middlewares
+require('./middlewares/validator/usuarios')
+require('./middlewares/validator/produtos')
 
 // carregas as rotas
 const index = require('./routes/index.js')
