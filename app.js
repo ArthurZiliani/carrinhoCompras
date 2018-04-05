@@ -5,11 +5,12 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const mongo = require('mongoose')
+const config = require('config')
 
 const app = express()
 
 // conecta ao banco de dados
-mongo.connect(`mongodb://root:root@ds251598.mlab.com:51598/teste`)
+mongo.connect(config.get('Database.Connection'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -37,11 +38,13 @@ const index = require('./routes/index.js')
 // const carrinho = require('./routes/carrinho')
 const produtos = require('./routes/produtos')
 const usuarios = require('./routes/usuarios')
+const autenticacao = require('./routes/autenticacao')
 
 app.use('/', index)
 // app.use('/carrinho', carrinho)
 app.use('/produtos', produtos)
 app.use('/usuarios', usuarios)
+app.use('/autenticacao', autenticacao)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

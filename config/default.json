@@ -1,0 +1,10 @@
+{
+  // Configurações do banco de dados
+  "Database": {
+    "Connection": "mongodb://root:root@ds251598.mlab.com:51598/teste"
+  },
+  // Configurações do token de autenticação
+  "Token": {
+    "Hash": "123"
+  }
+}
