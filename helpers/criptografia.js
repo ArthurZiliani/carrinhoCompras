@@ -1,33 +1,21 @@
 // dependências
-const md5 = require('md5')
+const bcrypt = require('bcrypt')
 
-const Criptografia = () => {
-  let KEY = 'XJZQ-2CSP-VS5F-OVGW-FAD2-34RP'
-
-  /**
+/**
   * Método: criptografar:
-  * Descrição: Criptografa utilizando MD5 Custom
+  * Descrição: Criptografa utilizando BCrypt
   * @value variável a ser criptografada
   */
-  const criptografar = (value) => {
-    let criptografado = md5(value + KEY)
-    return criptografado
-  }
-
-  /**
-  * Método: comparar:
-  * Descrição: Verifica se a variável hash é a descriptografia exata do value
-  * @value variável criptografada
-  */
-  const comparar = (value, hash) => {
-    let criptografado = md5(value + KEY)
-    return criptografado === hash
-  }
-
-  return {
-    criptografar: criptografar,
-    comparar: comparar
-  }
+exports.criptografar = async (value) => {
+  return bcrypt.hashSync(value, 10)
 }
 
-module.exports = Criptografia
+/**
+  * Método: comparar:
+  * Descrição: Verifica se a variável hash é a descriptografia exata do value
+  * @value variável sem criptografia
+  * @hash variável criptografada
+  */
+exports.comparar = async (value, hash) => {
+  return bcrypt.compareSync(value, hash)
+}

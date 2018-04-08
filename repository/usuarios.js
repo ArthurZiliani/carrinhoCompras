@@ -68,3 +68,13 @@ exports.editUsuario = async (id, data) => {
 exports.delUsuario = async (id) => {
   return UsuariosModel.findOneAndRemove({_id: id})
 }
+
+/***********
+*
+*  FILTRA USUÁRIO POR EMAIL
+*
+************/
+
+exports.filterUsuarioByEmail = async (valor) => {
+  return UsuariosModel.findOne({ email: valor })
+}

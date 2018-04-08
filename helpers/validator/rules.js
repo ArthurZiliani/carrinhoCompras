@@ -96,7 +96,7 @@ const Rules = () => {
       return
     }
 
-    if (value.length <= min) {
+    if (value.length < min) {
       return ({message: `O campo ${nomeCampo} deve ter no mínimo ${min} caracteres`})
     }
   }
@@ -114,7 +114,7 @@ const Rules = () => {
       return
     }
 
-    if (value.length >= max) {
+    if (value.length > max) {
       return ({message: `O campo ${nomeCampo} deve ter no máximo ${max} caracteres`})
     }
   }
@@ -154,7 +154,7 @@ const Rules = () => {
       return
     }
 
-    if (Number(value) <= min) {
+    if (Number(value) < min) {
       return ({message: `O campo ${nomeCampo} deve ser maior que ${min}`})
     }
   }
@@ -172,7 +172,7 @@ const Rules = () => {
       return
     }
 
-    if (Number(value) >= max) {
+    if (Number(value) > max) {
       return ({message: `O campo ${nomeCampo} deve ser menor que ${max}`})
     }
   }
